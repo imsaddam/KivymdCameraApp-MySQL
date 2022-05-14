@@ -1,0 +1,66 @@
+#:import get_color_from_hex kivy.utils.get_color_from_hex
+<HomePage>:
+    name: 'home_page'
+    MDFloatLayout:
+        MDLabel:
+            text: 'Welcome To Camera App'
+            font_style: 'H5'
+            halign: 'center'
+            font_size: '40dp'
+            pos_hint: {"center_x": .5, "center_y": .8}
+            text_color: get_color_from_hex("#00AEEF")
+
+        MDFillRoundFlatIconButton:
+            icon: "camera"
+            text: "Open Camera"
+            theme_text_color: "Custom"
+            text_color: get_color_from_hex("#FFFFFF")
+            line_color: 1, 0, 1, 1
+            theme_icon_color: "Custom"
+            icon_color: get_color_from_hex("#FFFFFF")
+            pos_hint: {"center_x": .5, "center_y": .5}
+            md_bg_color: get_color_from_hex("#00AEEF")
+            on_press: root.manager.current = 'camera_screen'
+
+
+<CameraScreen>:
+    name: 'camera_screen'
+    id: camera_screen
+    MDFloatLayout:
+        Camera:
+            id: camera
+
+
+        MDIconButton:
+            text: "Capture"
+            spacing: 10
+            icon: "camera"
+            md_bg_color: get_color_from_hex("#00AEEF")
+            pos_hint: {"center_x": .4}
+            on_press:
+                on_press: root.capture()
+
+        MDIconButton:
+            icon: "home"
+            spacing: 10
+            md_bg_color: get_color_from_hex("#00AEEF")
+            pos_hint: {"center_x": .5}
+            on_press: root.manager.current = 'home_page'
+        MDIconButton:
+            icon: "camera-flip"
+            spacing: 10
+            md_bg_color: get_color_from_hex("#00AEEF")
+            pos_hint: {"center_x": .7}
+            on_release: root.change_cam()
+
+
+<RootWidget>:
+    HomePage:
+        name: 'home_page'
+        id: home_page
+    CameraScreen:
+        name: 'camera_screen'
+        id: camera_screen
+    ImageScreen:
+        name: 'image_screen'
+        id: image_screen
